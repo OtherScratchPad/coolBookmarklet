@@ -60,6 +60,7 @@ function animThumbnailMain() {
                     var xhr = $.ajaxSettings.xhr();
                     xhr.upload.onprogress = function(e) {
                         if(!document.getElementById("snackbar").innerHTML.includes("Error")){
+                            console.log(getCookie("scratchcsrftoken"));
                             var progress = Math.floor(e.loaded / e.total *100) + '%';
                             document.getElementById("snackbar").innerHTML = "Uploading file " + progress;
                         }
@@ -83,8 +84,6 @@ function animThumbnailMain() {
     snackbar.id = "snackbar";
     document.body.appendChild(snackbar);
     
-    var a = getCookie("scratchsessionsid")
-    console.log(a)
     document.getElementById("snackbar").innerHTML = '<a id="selectThumbnailFile">Select an image</a> or drag and drop anywhere on this page.<br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
     document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
     document.getElementById("snackbar").className = "show";
