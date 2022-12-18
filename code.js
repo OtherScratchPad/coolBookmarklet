@@ -37,9 +37,10 @@ function animThumbnailMain() {
     var snackbar = document.createElement("div");
     snackbar.id = "snackbar";
     document.body.appendChild(snackbar);
-    document.getElementById("snackbar").innerHTML = '<a>Select an image</a> or drag and drop anywhere on this page.<br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
+    document.getElementById("snackbar").innerHTML = '<a>Select an image</a> amongus<br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
     document.getElementById("snackbar").className = "show";
-    var a = getCookie("scratchsessionsid")
+    var a = getCookie("scratchsessionsid");
+    console.log(a);
             $.ajax({
                 type: "PUT",
                 url: "/projects/623849753",
