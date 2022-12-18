@@ -18,15 +18,6 @@ function animThumbnailMain() {
         document.head.appendChild(css);
     }
 
-    error = function error(err) {
-        if(String(err).includes("parameter 1 is not of type 'Blob'.")) {
-            document.getElementById("snackbar").innerHTML = 'Error - please upload a downloaded file,<br> not an image from another website.<br><a id="selectThumbnailFile">Select an image</a><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
-            document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
-        } else {
-            document.getElementById("snackbar").innerHTML = 'Error - try a smaller image.<br><a id="selectThumbnailFile">Select an image</a><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
-            document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
-        }
-    }
     getCookie = function getCookie(name) {
         var value = "; " + document.cookie;
         var parts = value.split("; " + name + "=");
@@ -51,8 +42,5 @@ function animThumbnailMain() {
                 success: function(msg) {
                     document.getElementById("snackbar").innerHTML = 'Successfully loaded.<br><br><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
                 },
-                error: function() {
-                    error();}
             });
-        };
 }
