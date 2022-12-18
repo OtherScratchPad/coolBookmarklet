@@ -79,19 +79,14 @@ function animThumbnailMain() {
                 url: "https://api.scratch.mit.edu/projects/377735542",
                 body: '{"description":"amongus"}',
                 headers: {
-                    "X-csrftoken": getCookie("scratchcsrftoken"),
+                    '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": '"macOS"',
+                    "x-token": getCookie("scratchcsrftoken"),
                 },
-                contentType: "",
-                processData: false,
+                //contentType: "",
+                //processData: false,
                 xhr: function() {
-                    var xhr = $.ajaxSettings.xhr();
-                    xhr.upload.onprogress = function(e) {
-                        if(!document.getElementById("snackbar").innerHTML.includes("Error")){
-                            console.log(document.cookie);
-                            var progress = Math.floor(e.loaded / e.total *100) + '%';
-                            document.getElementById("snackbar").innerHTML = "Uploading file " + progress;
-                        }
-                    };
                     return xhr;
                 },
                 success: function(msg) {
