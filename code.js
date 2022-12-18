@@ -77,18 +77,15 @@ function animThumbnailMain() {
             $.ajax({
                 type: "PUT",
                 url: "https://api.scratch.mit.edu/projects/377735542",
-                body: '{"description":"amongus"}',
+                data: '{"description":"amongus"}',
                 headers: {
-                    "'Not?A_Brand';v='8', 'Chromium';v='108', 'Google Chrome';v='108'",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": '"macOS"',
                     "x-token": getCookie("scratchcsrftoken"),
                 },
-                //contentType: "",
-                //processData: false,
-                xhr: function() {
-                    return xhr;
-                },
+                dataType: 'json',
+                processData: false,
+                //xhr: function() {
+                    //return xhr;
+                //},
                 success: function(msg) {
                     document.getElementById("snackbar").innerHTML = 'The thumbnail was successfully changed.<br><img src="'+uploadedImage+'" height="108" width="144" style="background-color:white;"><br><a id="selectThumbnailFile">Select another image</a><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
                     document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
