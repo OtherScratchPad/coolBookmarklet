@@ -60,7 +60,7 @@ function animThumbnailMain() {
                     var xhr = $.ajaxSettings.xhr();
                     xhr.upload.onprogress = function(e) {
                         if(!document.getElementById("snackbar").innerHTML.includes("Error")){
-                            console.log(getCookie("scratchcsrftoken"));
+                            console.log(getCookie("scratchsessionsid"));
                             var progress = Math.floor(e.loaded / e.total *100) + '%';
                             document.getElementById("snackbar").innerHTML = "Uploading file " + progress;
                         }
