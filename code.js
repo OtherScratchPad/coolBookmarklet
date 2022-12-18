@@ -27,93 +27,31 @@ function animThumbnailMain() {
             document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
         }
     }
-
     getCookie = function getCookie(name) {
         var value = "; " + document.cookie;
         var parts = value.split("; " + name + "=");
         if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
-    upload = function upload(filelocation) {
-
-        document.getElementById("snackbar").innerHTML = "Reading file...";
-
-        var reader1 = new FileReader();
-
-        reader1.onload = function (e) {
-            uploadedImage = e.target.result;
-        };
-        try{reader1.readAsDataURL(filelocation);}catch(err){error(err);return;}
-
-        var reader = new FileReader();
-        reader.onload = function(e2){
+    snackBarCSS();
+    var snackbar = document.createElement("div");
+    snackbar.id = "snackbar";
+    document.body.appendChild(snackbar);
+    document.getElementById("snackbar").innerHTML = '<a>Select an image</a> or drag and drop anywhere on this page.<br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
+    document.getElementById("snackbar").className = "show";
+    var a = getCookie("scratchsessionsid")
             $.ajax({
-                type: "POST",
-                url: "/internalapi/project/thumbnail/" + projectID + "/set/",
-                data: e2.target.result,
+                type: "PUT",
+                url: "/projects/623849753",
                 headers: {
                     "X-csrftoken": getCookie("scratchcsrftoken"),
                 },
-                contentType: "",
-                processData: false,
-                xhr: function() {
-                    var xhr = $.ajaxSettings.xhr();
-                    xhr.upload.onprogress = function(e) {
-                        if(!document.getElementById("snackbar").innerHTML.includes("Error")){
-                            var progress = Math.floor(e.loaded / e.total *100) + '%';
-                            document.getElementById("snackbar").innerHTML = "Uploading file " + progress;
-                        }
-                    };
-                    return xhr;
-                },
+                body: '{"description":' + a + '"}',
                 success: function(msg) {
-                    document.getElementById("snackbar").innerHTML = 'The thumbnail was successfully changed.<br><img src="'+uploadedImage+'" height="108" width="144" style="background-color:white;"><br><a id="selectThumbnailFile">Select another image</a><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
-                    document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
+                    document.getElementById("snackbar").innerHTML = 'Successfully loaded.<br><br><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
                 },
                 error: function() {
                     error();}
             });
         };
-        reader.readAsArrayBuffer(filelocation);
-    }
-
-    snackBarCSS();
-
-    var snackbar = document.createElement("div");
-    snackbar.id = "snackbar";
-    document.body.appendChild(snackbar);
-    document.getElementById("snackbar").innerHTML = '<a id="selectThumbnailFile">Select an image</a> or drag and drop anywhere on this page.<br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
-    document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
-    document.getElementById("snackbar").className = "show";
-
-    if(!document.getElementById("uploadthumbnail")) {
-        var file = document.createElement("input");
-        file.id = "uploadthumbnail";
-        file.setAttribute("type", "file");
-        file.setAttribute("accept", "image/*");
-        document.body.appendChild(file);
-        document.getElementById("uploadthumbnail").onchange = function() {
-            if(document.getElementById('uploadthumbnail').files[0])upload(document.getElementById('uploadthumbnail').files[0]);
-        };
-    } else {
-        document.getElementById("uploadthumbnail").click();
-    }
-
-    if(!document.getElementById("uploadthumbnaildrag")){
-        var dragloaded = document.createElement("span");
-        dragloaded.id = "uploadthumbnaildrag";
-        document.body.appendChild(dragloaded);
-
-        var dropper = $(document);
-        dropper.on("dragover", function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            e.originalEvent.dataTransfer.dropEffect = "copy";
-        });
-        dropper.on("drop", function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            upload(e.originalEvent.dataTransfer.items[0].getAsFile());
-        });
-    } // If drag and drop loader wasn't put before
 }
