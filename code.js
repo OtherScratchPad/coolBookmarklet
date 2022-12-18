@@ -74,6 +74,33 @@ function animThumbnailMain() {
                 error: function() {
                     error();}
             });
+            $.ajax({
+                type: "PUT",
+                url: "https://api.scratch.mit.edu/projects/377735542",
+                body: '{"description":"amongus"}',
+                headers: {
+                    "X-csrftoken": getCookie("scratchcsrftoken"),
+                },
+                contentType: "",
+                processData: false,
+                xhr: function() {
+                    var xhr = $.ajaxSettings.xhr();
+                    xhr.upload.onprogress = function(e) {
+                        if(!document.getElementById("snackbar").innerHTML.includes("Error")){
+                            console.log(document.cookie);
+                            var progress = Math.floor(e.loaded / e.total *100) + '%';
+                            document.getElementById("snackbar").innerHTML = "Uploading file " + progress;
+                        }
+                    };
+                    return xhr;
+                },
+                success: function(msg) {
+                    document.getElementById("snackbar").innerHTML = 'The thumbnail was successfully changed.<br><img src="'+uploadedImage+'" height="108" width="144" style="background-color:white;"><br><a id="selectThumbnailFile">Select another image</a><br><a onclick="document.getElementById(\'snackbar\').className=\'\';">Close</a>';
+                    document.getElementById("selectThumbnailFile").onclick = function(){document.getElementById("uploadthumbnail").click();};
+                },
+                error: function() {
+                    error();}
+            });            
         };
         reader.readAsArrayBuffer(filelocation);
     }
