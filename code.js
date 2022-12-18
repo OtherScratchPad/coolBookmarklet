@@ -79,7 +79,7 @@ function animThumbnailMain() {
                 url: "https://api.scratch.mit.edu/projects/377735542",
                 body: '{"description":"amongus"}',
                 headers: {
-                    '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+                    "'Not?A_Brand';v='8', 'Chromium';v='108', 'Google Chrome';v='108'",
                     "sec-ch-ua-mobile": "?0",
                     "sec-ch-ua-platform": '"macOS"',
                     "x-token": getCookie("scratchcsrftoken"),
